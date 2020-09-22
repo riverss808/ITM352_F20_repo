@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Hello
+    <script>
+        var first_name = "Samuel";
+        var middle_name = "George";
+        var last_name = "Rivers";
+        var full_name = '<b>' + first_name + '</b>' + " " + 
+        '<i>' + middle_name + '</i>' + " " + 
+        '<h1>' + last_name + '</h1>';
+        var formatted_name = 
+        full_name + '<br>' + first_name[0] + '.' + last_name[0] + '.';
+        document.write(formatted_name);
+        var bill = 50.00;
+        var tax = bill*0.0413;
+        var taxDecimal = '<br>' + "The tax on " + first_name + "'s bill is $" + tax + ".";
+        document.write(taxDecimal);
+    </script>
+    <div id="ageDiv"></div>
+</body>
+</html>
+<script>
+    age = 19;
+    var numberofkids = 2;
+    document.getElementById('ageDiv').innerHTML = "I want " +
+    numberofkids*age + " kids!";
+</script>
