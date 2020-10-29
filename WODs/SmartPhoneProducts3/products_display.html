@@ -1,39 +1,31 @@
 <script>
     var num_items= 5;
-        // Product 1 
-    product1= {
-        brand = "HTC",
-        price = 40.00,
-        image = "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg",
-    };
-
-    // Product 2 
-    product2= {
+[  {
+        brand: "HTC",
+        price: 40.00,
+        image: "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg",
+    },
+    {
         brand = "Apple",
         price = 75.00,
         image = "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg",
-    };
-
-    // Product 3
-    product3= {
+    },
+    {
         brand = "Nokia",
         price = 35.00,
         image = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg",
-    };
-
-    // Product 4 
-    product4= {
+    },
+    {
         brand = "Samsung",
         price = 45.00,
         image = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg",
-    };
-
-    // Product 5 
-    product5= {
+    },
+    {
         brand = "Blackberry",
         price = 10.00,
         image = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg",
-    };
+    }
+]
 
     // Products Array
         products = [product1, product2, product3, product4, product5]
@@ -58,7 +50,7 @@
     document.write(`
     <section class="item"> 
        <h2>${products[i].brand}</h2>
-        <p>${products[i].price}<p>
+        <h2>${products[i].price}<h2>
         <img src="${products[i].image}>
     </section>
     `);
