@@ -1,0 +1,114 @@
+<script src="./product_list.js" type="text/javascript"> 
+//Get request to reference back to products_list
+</script> 
+
+
+<script>
+//Assignment 1 Example, creates new URL for invoice
+        let params = (new URL(document.location)).searchParams;
+        var quantities = []; 
+        console.log(quantities);
+//Used to process purchase if Valid Quantity,then sent to the invoice
+        if (params.has('submitPurchase')) {
+          for (i = 0; i < products.length; i++) {
+            if (params.has(`quantity${i}`)) {
+              a_qty = params.get(`quantity${i}`);
+              quantities[i] = a_qty;
+            }
+          }
+//If not a valid quanitity, customer is shown an Error
+        } else {
+          document.write('ERROR - Please Enter a Valid Quantity!');
+        }
+</script>  
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Invoice Table</title>
+      <link href="products_style.css" rel="stylesheet">
+    </head>
+    <body>
+            <table border="2" align= "center" bgcolor="Bisque"> 
+                <tbody> 
+                    <tr> 
+                        <th style="text-align: center;" width="43%">Case Type</th>
+                        <th style="text-align: center;" width="11%">Quantity</th> 
+                        <th style="text-align: center;" width="13%">Price</th> 
+                        <th style="text-align: center;" width="54%">Extended Price</th> 
+                    </tr>
+              <script>
+               subtotal = 0;
+                for (i = 0; i < products.length; i++) {
+                  if (quantities[i] > 0) {
+      // Calculations for Subtotal
+                 extended_price = quantities[i] * products[i].price;
+                 subtotal =  extended_price + subtotal;
+                  document.write(`
+            <tr>
+              <td width="43%">${products[i].product}</td>
+              <td align="center" width="11%">${quantities[i]}</td>
+              <td width="13%">\$${products[i].price}</td>
+              <td width="54%">\$${extended_price}</td>
+            </tr>
+            `);
+                }
+               }
+      // Around Hawaii Sales Tax Rate
+              var tax_rate = 0.0425;
+              var tax = tax_rate * subtotal;
+      
+      // Shipping From Hawaii Costs
+              if (subtotal < 125) {
+                shipping = 4.95;
+              }
+              else if (subtotal < 250) {
+                shipping = 9.35;
+              }
+              else {
+                shipping = 0.037 * subtotal; // 6% of Subtotal
+              }
+      
+              // Compute grand total
+              var total = subtotal + tax + shipping;
+                 </script>
+                
+                  <tr>
+                    <td colspan="4" width="100%">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
+                    <td width="54%">$<script>document.write(subtotal);</script></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ <script>document.write(100*tax_rate);</script>%</span></td>
+                    <td width="54%">$<script>document.write(tax.toFixed(2));</script></td>
+                  </tr>
+                  <tr>
+                      <td style="text-align: center;" colspan="3" width="67%">Shipping</span></td>
+                      <td width="54%">$<script>document.write(shipping.toFixed(2));</script></td>
+                    </tr>
+                  <tr>
+                    <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+                    <td width="54%"><strong>$<script>document.write(total.toFixed(2));</script></strong></td>
+                  </tr>
+                </tbody>
+              </table>   
+              
+                  <main align="center">
+                    <b>
+                       Tax rate is Hawaii based and shipping is subsidized by us. Thank you for shopping with Sam's Superior Phone Cases!!!
+                       The More You Buy, The More You Save on Shipping.
+                    </b>
+                       <br>
+                       $0 - $124.99: $4.95 Shipping
+                       <br>
+                       $125 - $249.99: $9.35 Shipping 
+                       <br>
+                       Over $250: 3.7% of the Subtotal
+                    </main>
+        </body>
+        </html>
