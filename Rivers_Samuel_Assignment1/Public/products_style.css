@@ -35,6 +35,12 @@ h2{
     color: #bc2e1e;
     background: #dbd4b1;
 }
+h3{
+    border: 3px solid rgb(10, 118, 6);
+    font-family:'Times New Roman', Times, serif;
+    color: black;
+    background: rgb(168, 168, 168);
+}
 
 /*General Alignment*/
 main {

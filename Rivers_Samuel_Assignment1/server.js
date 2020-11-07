@@ -1,19 +1,23 @@
-//Creating a server via express//
-var data = require('./Public/product_data.js'); //get the data from product_data.js
+// Via Express, Server is Formulated
+var data = require('./Public/product_list.js'); 
+// Data received from products_list.js
 var products = data.products;
 
-var express = require('express'); //Server requires express to run//
-var app = express(); //Run the express function and start express//
+var express = require('express');
+// Require Express for Server to Run
+var app = express(); 
+// Start Express
 var myParser = require("body-parser");
 
-
+// Referenced back from Assignment 1
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path)
     next();
 });
 
+// Useing myParser for App.Use (Referecne Assigment 1)
 app.use(myParser.urlencoded({ extended: true }));
-//to process the response from what is typed in the form
+// Processing the form from the server request
 app.get("/process_form", function (request, response) {
    let GET = request.body;
    if (typeof GET['quantity_textbox'] != 'undefined') {
@@ -23,12 +27,18 @@ app.get("/process_form", function (request, response) {
 });
 
 function isNonNegInt(q, returnErrors = false) {
-    errors = []; // assume that quantity data is valid 
+    errors = [];
+// Assuming that it is valid with No Errors
     if (q == "") { q = 0; }
-    if (Number(q) != q) errors.push('Not a number!'); //check if value is a number
-    if (q < 0) errors.push('Negative value!'); //check if value is a positive number
-    if (parseInt(q) != q) errors.push('Not an integer!'); //check if value is a whole number
+    if (Number(q) != q) errors.push('Not a number!');
+    // If Value is not a Number
+    if (q < 0) errors.push('Negative value!');
+    // If Value is not a Positive Number
+    if (parseInt(q) != q) errors.push('Not an integer!');
+    // If Value is not a Whole Number (Cannot Sell Half a Case)
     return returnErrors ? errors : (errors.length == 0);
  }
-app.use(express.static('./Public')); //Creates a static server using express from the public folder
+app.use(express.static('./Public')); 
+// Creates a Server that references the Public Folder
 app.listen(8080, () => console.log(`listen on port 8080`))
+// Listen on Port 8080 because that is what the class is hosted on
