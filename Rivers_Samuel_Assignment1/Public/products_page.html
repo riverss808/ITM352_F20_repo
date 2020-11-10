@@ -21,6 +21,9 @@ function isNonNegInt(q, return_errors = false) {
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
+
+// Referencing Assignment 1 & SmartPhoneProducts3 Example
+// Can be used to show an error message if customer types non-integer or negative number
     window.onload = function () {
         let params = (new URL(document.location)).searchParams; 
     // New URL is created if everything is passed and positive number is inputted
