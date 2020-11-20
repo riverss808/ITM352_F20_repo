@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sam's Super Phone Cases Login</title>
+
+    <link href="products_style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!--the following code is for the navigation bar-->
+    <header>
+        <h1>Sam's Superior Phone Cases</h1>
+    </header>
+    <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./products_page.html">iPhone 12 Cases</a></li>
+            <li><a class="active" href="./login.html">Log In</a></li>
+    </ul>
+    <div style="padding:1px 16px;height:1000px;">
+        <h2> Log In To Continue Your Purchase!</h2>
+        <!--the following code is the form for the login page-->
+        <form name="loginform" method="POST" action="/check_login">
+            <div>
+                <input type="text" name="username" size="40" placeholder="enter username"><br />
+                <input type="password" name="password" size="40" placeholder="enter password"><br />
+                <input type="submit" value="login" id="submit"> </div>
+        </form>
+</body>
+
+
+<h2>Don't Have An Account? Create One Below!</h2>
+
+<body>
+    <!--the following code is for the button for registration-->
+    <div> 
+        <input type="button" class="button" value="Create Account Here" id="regbutton" name="register_here" 
+        onclick = "location.href=`./register.html${document.location.search}`"; 
+        >
+        <!--the above onclick directs the user to where it wants to go upon clicking the button-->
+    </div>
+    
+    </body>
+    
+    <script>
+    loginform.action += document.location.search;
+    </script>
+    </html

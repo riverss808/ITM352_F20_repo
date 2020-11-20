@@ -1,0 +1,79 @@
+/*Margin*/
+html{
+    width: 850px; 
+    margin: auto;
+    background-color: rgb(39, 158, 93);  
+}
+
+/*Image Dimensions, Borders, & Shadows*/
+img{
+
+    width: 225px;
+    height: 225px;
+    -webkit-box-shadow: 5px 5px 20px 5px #1b491b; 
+    box-shadow: 5px 5px 20px 5px #1b491b;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+}
+
+
+/*Header Alignment*/
+h1{
+    text-align: center;
+}
+
+/*Header Font Styles*/
+h1{
+    border: 5px solid rgb(10, 118, 6);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: #bc2e1e;
+    background: #dbd4b1;
+}
+h2{
+    border: 5px solid rgb(10, 118, 6);
+    font-family:'Times New Roman', Times, serif;
+    color: #bc2e1e;
+    background: #dbd4b1;
+}
+h3{
+    border: 3px solid rgb(10, 118, 6);
+    font-family:'Times New Roman', Times, serif;
+    color: black;
+    background: rgb(168, 168, 168);
+}
+
+/*General Alignment*/
+main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    background-position: center;
+    background-color: rgba(96, 233, 96, 0.473);
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+/*Price Label*/
+p{
+    text-align:center;
+    color: white;
+    background-color: Black;   
+}
+
+label{
+    text-align: center ;
+    border: 3px solid rgb(10, 118, 6);
+    background-color: #56c1c9; 
+}
+
+/*Border*/
+div{
+    text-align:center;
+    border: 10px solid #04813c;
+    display: flex;
+    border-radius: 15px;
+} 
+
+footer{
+    text-align: center;    
+}
