@@ -1,0 +1,28 @@
+
+[
+
+   { "image": "images/Koa_Case.jpg", 
+    "name": "Koa Wood Case",
+     "price": 39.99
+    },
+
+   { "image": "images/Carbon_Case.jpg", 
+    "name": "Carbon Fiber Case", 
+    "price": 29.99
+    },
+
+    { "image": "images/Clear_Case.jpg", 
+    "name": "Clear Case", 
+    "price": 24.99
+    },
+
+    { "image": "images/Silicone_Case.jpg", 
+        "name": "Silicone Case", 
+        "price": 34.99
+        },
+  
+    { "image": "images/Wallet_Case.jpg", 
+        "name": "Wallet Case", 
+        "price": 49.99
+        }
+]

@@ -16,7 +16,6 @@ img{
     border-radius: 25px;
 }
 
-
 /*Header Alignment*/
 h1{
     text-align: center;
@@ -77,3 +76,14 @@ div{
 footer{
     text-align: center;    
 }
+
+/*Button*/
+button {
+    background-color: #000000;
+    color: #FFFFFF;
+    float: center;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+  }
