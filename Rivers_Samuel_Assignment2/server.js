@@ -1,57 +1,67 @@
-//Code from Lab13 Ex4
-var express = require('express'); //uses express
-var app = express();//gets express
+// Samuel Rivers
+// Referencing Code from the following: Lab 13
+
+// Referencing Lab13 Exercise 4
+// Utilization of Express
+var express = require('express'); 
+// Retrieves Express
+var app = express();
 var myParser = require("body-parser");
 var fs = require('fs');
-var products = require('./products.json'); //gets stuff from products.json
+// Retrieves Products from /products.json
+var products = require('./products.json'); 
 var filename = 'user_data.json'
 
-// Code from Professors Port :)
-var qs = require('querystring'); //allows the query string to become the info for the invoice 
-
+// Querystring becomes Info for Invoice
+var qs = require('querystring');  
 
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path);
     next();
 });
 
+// Gained help from Meghan Nagai & Kevin Nguyen
 app.get("/get_products", function (request, response) {
-    // process_quantity_form(request.body, response);
-    // Code from Professor Port :)
+// Defines "/get_products"; process_quantity_form(request.body, response);   
     response.type('.js');
-    console.log(" var products = " + JSON.stringify(products) + ";"); //gets the json string from url
-    response.send(" var products = " + JSON.stringify(products) + ";");//sends the json string thru
+    // Retrieves JSON String from URL
+    console.log(" var products = " + JSON.stringify(products) + ";"); 
+    // Sends the JSON String through
+    response.send(" var products = " + JSON.stringify(products) + ";");
 });
 
 app.use(myParser.urlencoded({ extended: true }));
 
-//Borrowed code for processing login/registration is from Alyssa, with assistance from Daphne and Professor Port (big thanks to these people)
-//Checking filename user_data.json
+// Code for processing login/registration: helped by Alvin Amira, Meghan Nagai, and Kevin Nguyen
+// Checking filename user_data.json
 if (fs.existsSync(filename)) {
     stats = fs.statSync(filename);
     var data = fs.readFileSync(filename, 'utf-8');
     var users_reg_data = JSON.parse(data);
+// If user does not exist, give error
 } else {
     console.log(`ERR: ${filename} does not exist!`);
 }
-
-//User Login code (Borrowed from Alyssa)
+// User Login Form
 app.post("/login_form", function (req, res) {
     var LogError = [];
     console.log(req.body);
-    the_username = req.body.username.toLowerCase();// making username lowercase
+    the_username = req.body.username.toLowerCase();
+// Ensuring that username is lowercase
     if (typeof users_reg_data[the_username] != 'undefined') {
-        if (req.body.password == users_reg_data[req.body.username].password) { //redirects user to invoice after login
-            res.redirect('./invoice.html?' + purchase_qs);
-
-        } else { //notifies user of invalid password (Borrowed from Alyssa)
-            LogError.psuh = ('Invalid Password');
-            console.log(LogError);
-            req.query.username = the_username;
-            req.query.name = users_reg_data[the_username].name;
-            req.query.LogError = LogError.join(';');
+    if (req.body.password == users_reg_data[req.body.username].password) { 
+// Redirects User to Invoice after Successful Login
+    res.redirect('./invoice.html?' + purchase_qs);
+    } else { 
+// If Invalid Passowrd, User is notified
+        LogError.psuh = ('Invalid Password');
+        console.log(LogError);
+        req.query.username = the_username;
+        req.query.name = users_reg_data[the_username].name;
+        req.query.LogError = LogError.join(';');
         }
-    } else { //notifies user of invalid username (Borrowed from Alyssa)
+    } else { 
+// If Invalid Username, User is notified
         LogError.push = ('Invalid Username');
         console.log(LogError);
         req.query.username = the_username;
@@ -60,57 +70,62 @@ app.post("/login_form", function (req, res) {
     res.redirect('./login.html?' + purchase_qs);
 });
 
-//Making Account / validatting account code 
+// Creating an Account through Registration
 app.post("/process_register", function (req, res) {
     var errors = [];
     var reguser = req.body.username.toLowerCase();
-
+// Notifies user if Username is taken already
     if (typeof users_reg_data[reguser] != 'undefined') {
         errors.push('Username Taken')
     }
-    //Use of only letters for Full Name
+// Only letters can be used for Full Name
     if (/^[A-Za-z]+$/.test(req.body.name)) { 
     }
+// Notifies User of Error
     else {
         errors.push('Use Only Letters for Full Name');
     }
-    // validating that it is a Full Name
+// Full Name is Validated
     if (req.body.name == "") {
         errors.push('Invalid Full Name');
     }
-    // length of full name is between 0 and 25 
-    if ((req.body.fullname.length > 25 && req.body.fullname.length < 0)) {
+// Full name length between 0 and 30 Letters
+    if ((req.body.fullname.length > 30 && req.body.fullname.length < 0)) {
         errors.push('Full Name Too Long');
     }
 
-    //Makes user use only letters and numbers 
+// User can only utilize letters and numbers 
     if (/^[0-9a-zA-Z]+$/.test(req.body.username)) {
     }
+// Notified if other characters are entered
     else {
         errors.push('Letters And Numbers Only for Username')
     }
-    //Password character requirement
+// Password must be longer than 6 characters
     if (req.body.password.length < 6) {
         errors.push('Password Too Short')
     }
-    // Making sure passwords are the same 
+// The two passwords should be the same
     if (req.body.password !== req.body.repeat_password) {
         errors.push('Password Not a Match')
     }
-    //Saves user's registration in user_data.json (Referenced from lab 14)
+// Referencing Lab 14
+// User data is saved under user_data.json
     if (errors.length == 0) {
         POST = req.body
         console.log('no errors')
         var username = POST['username'];
-        users_reg_data[username] = {}; //make it 'users'
+        users_reg_data[username] = {}; 
+// Users data is saved - username, password, & email
         users_reg_data[username].name = username;
         users_reg_data[username].password = POST['password'];
         users_reg_data[username].email = POST['email'];
-        data = JSON.stringify(users_reg_data); //change to users 
+        data = JSON.stringify(users_reg_data); 
+// User written on invoice and saved
         fs.writeFileSync(filename, data, "utf-8");
         res.redirect('./invoice.html?' + purchase_qs);
     }
-    //Keeping user at register page due to error/Logging it in console
+// If there is an error, User does not go to Invoice
     if (errors.length > 0) {
         console.log(errors)
         req.query.name = req.body.name;
@@ -118,57 +133,61 @@ app.post("/process_register", function (req, res) {
         req.query.password = req.body.password;
         req.query.repeat_password = req.body.repeat_password;
         req.query.email = req.body.email;
-
+// Redirect User to Registration page
         req.query.errors = errors.join(';');
         res.redirect('register.html?' + purchase_qs);
     }
 });
 
-app.post("/process_form", function (request, response, next) {
-    //console.log(request.body);  
+ //console.log(request.body); 
+app.post("/process_form", function (request, response, next) { 
 
-
-    // Code from Lab13 along with assistance from Daphne Oh 
-    //Validate purchase data. Check each quantity is non negative integer or blank.
-    var validqty = true; //Check for valid input. 
-    var totlpurchases = false; //Check if there were any inputs and blank.
+// Referenced Code from Lab 13
+// Check fo see if Input is Non-Negative Integer or Empty
+// Check to see if Valid
+    var validqty = true;   
+// Check if there are inputs or blanks
+    var totlpurchases = false;
     for (i = 0; i < products.length; i++) {
         aqty = request.body[`quantity${i}`];
+// Invalid data 
         if (isNonNegIntString(aqty) == false) {
-            validqty &= false; //Invalid data 
-
+            validqty &= false; 
         }
-        if (aqty > 0) { //No input or was left blank.
+// No input and/or left blank
+        if (aqty > 0) { 
             totlpurchases = true;
         }
     }
 
-    // Create query string of quantity data for invoice. 
+// Creation of querystring for Invoice Page 
     purchase_qs = qs.stringify(request.body);
-    //If data is valid, then send to login. 
+// If data is valid, User is sent to Login Page
     if (validqty == true && totlpurchases == true) {
         response.redirect('./login.html?' + purchase_qs);
     }
-    //If data isn't valid reload main page. 
+// If data is invalid, page is reloaded to Index
     else {
         response.redirect("./index.html?");
     }
-
 });
 
 app.use(express.static('./public'));
 app.listen(8080, () => console.log(`listening on port 8080`));
 
-//Code from by Lab13 and Assignment1 Example
+// Reference Code from Lab13 and Assignment1 Example
 function isNonNegIntString(string_to_check, returnErrors = false) {
-    /* This function returns true if string_to_check is a non-negative integer.*/
-    errors = []; // assume no errors at first
+// Function returns true if string_to_check is a non-negative integer
+// No Errors are Assumed
+    errors = []; 
     if (string_to_check == '') string_to_check = 0;
-    if (Number(string_to_check) != string_to_check) { errors.push('Not a number!'); } // Check if string is a number value
+// Check if string is a number value
+    if (Number(string_to_check) != string_to_check) { errors.push('Not a number!'); } 
     else {
-        if (string_to_check < 0) errors.push('Negative value!'); // Check if it is non-negative
-        if (parseInt(string_to_check) != string_to_check) errors.push('Not an integer!'); // Check that it is an integer
-
+// Check if string is non-negative
+        if (string_to_check < 0) errors.push('Negative value!'); 
+// Check that it is an integer
+        if (parseInt(string_to_check) != string_to_check) errors.push('Not an integer!'); 
     }
 
     return returnErrors ? errors : ((errors.length > 0) ? false : true);
