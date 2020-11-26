@@ -15,10 +15,12 @@
 
 </script>
 
- <!--An attempt to get username from https://www.youtube.com/watch?v=vOe0ysNsNCo-->
+ <!--Referenced https://www.youtube.com/watch?v=vOe0ysNsNCo -->
   <script> 
+// Help from Alvin Amira youtube link referenced above
   function passvalue()
   {
+// Checking Username
     var firstname = document.getElementById("username").value;
     localStorage.setItem("textvalue", firstname);
     return false;
@@ -39,8 +41,7 @@
 
       <h2>Login</h2>
   
-
-    <!--Code to make Login form from Lab14-->
+    <!--Referencing Login Form from Lab14-->
 
     <form name="login_form" action="login_form" method="POST">
 
@@ -60,6 +61,6 @@
 </html>
 
 <script>
-  //saves the query string from the products page for the invoice
+// Saving query string from the products page for the invoice
   login_form.action += '?' + location.search; 
 </script>

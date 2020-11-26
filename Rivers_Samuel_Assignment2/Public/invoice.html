@@ -3,11 +3,11 @@
 
 <script src="./user_data.json" type="json"></script>
 
-<!-- Got this code from Assignment1 example-->
+<!--Referencing Assignment 1-->
 <script>
   let params = (new URL(document.location)).searchParams;
   var quantities = [];
-  // form was submitted to process the invoice
+// Form submitted to process Invoice
   if (params.has('purchase_submit')) {
     for (i = 0; i < products.length; i++) {
       if (params.has(`quantity${i}`)) {
@@ -15,6 +15,7 @@
         quantities[i] = a_qty;
       }
     }
+// Check to see Username
   } if (params.has('username')) {
     var name = params.get('name');
     var username = params.get('username');
@@ -39,7 +40,8 @@
 
     }
 
-    /** Borrowed Code from WesCossick for aesthetics  **/
+/** Referenced Code from SparkSuite **/
+/** https://www.sparksuite.com/ **/
     .invoice-box {
       max-width: 800px;
       margin: auto;
@@ -51,21 +53,15 @@
       font-family: "Montserrat", sans-serif;
       color: #555;
     }
-
-    /** Borrowed Code from WesCossick for aesthetics  **/
     .invoice-box table {
       width: 100%;
       line-height: inherit;
       text-align: left;
     }
-
-    /** Borrowed Code from WesCossick for aesthetics   **/
     .invoice-box table td {
       padding: 5px;
       vertical-align: top;
     }
-
-    /** Borrowed Code from WesCossick for aesthetics **/
     .invoice-box table tr td:nth-child(2) {
       text-align: right;
     }
@@ -75,11 +71,11 @@
 <body>
 
     <h1>Invoice</h1>
-    <!-- Got this code from invoice4-->
+<!-- Referenced Invoice 4 -->
 
     <table border="2">
 
-          <!--An attempt to get username from https://www.youtube.com/watch?v=vOe0ysNsNCo-->
+<!-- Referenced https://www.youtube.com/watch?v=vOe0ysNsNCo -->
 
           <body>
 
@@ -107,7 +103,7 @@
               subtotal = 0;
               for (i = 0; i < products.length; i++) {
                 if (quantities[i] > 0) {
-                  // product row
+              // product row
                   extended_price = quantities[i] * products[i].price
                   subtotal += extended_price;
                   document.write(`

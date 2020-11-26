@@ -1,5 +1,5 @@
 // Samuel Rivers
-// Referencing Code from the following: Lab 13
+// Referencing Code from the following: Lab 13, Lab 14. Gained help & advice from Meghan Nagai, Alvin Amira, and Kevin Nguyen.
 
 // Referencing Lab13 Exercise 4
 // Utilization of Express
