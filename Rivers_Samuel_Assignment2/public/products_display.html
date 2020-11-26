@@ -2,14 +2,17 @@
 <script>
 // Referencing Assignment1 Example
   function isNonNegInt(q, return_errors = false) {
-    errors = []; // assume no errors at first
-    if (q == '') q = 0; // handle blank inputs as if they are 0
+// Assume no errors in beginning
+    errors = []; 
+// No inputs equate to Blank Inputs
+    if (q == '') q = 0; 
+// Notifications if there are errors
     if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
     else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
     else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
     return return_errors ? errors : (errors.length == 0);
   }
-
+// Says 'You want' amount of Quantity inputted
   function checkQuantityTextbox(theTextbox) {
     errs = isNonNegInt(theTextbox.value, true);
     if (errs.length == 0) errs = ['You want:'];
@@ -18,20 +21,26 @@
   }
 
   window.onload = function () {
-    let params = (new URL(document.location)).searchParams; // get the query string which has the form data
-    // form was submitted so check that quantities are valid then redirect to invoice if ok.
+// Retrieves query string
+    let params = (new URL(document.location)).searchParams; 
+// Checks if Quantities are Valid, and Redirects if so
+// Assume Quantities are Valid
     if (params.has('purchase_submit')) {
-      has_errors = false; // assume quantities are valid from the start
-      total_qty = 0; // need to check if something was selected so we will look if the total > 0
+      has_errors = false; 
+      total_qty = 0; 
+// Check if the total > 0
       for (i = 0; i < products.length; i++) {
+// Help From Meghan Nagai
+// Makes textboxes sticky in case of invalid data
         if (params.has(`quantity${i}`)) {
           a_qty = params.get(`quantity${i}`);
-          // make textboxes sticky in case of invalid data
           product_selection_form[`quantity${i}`].value = a_qty;
           total_qty += a_qty;
+// Checks if Invalid Quantity
           if (!isNonNegInt(a_qty)) {
-            has_errors = true; // oops, invalid quantity
-            checkQuantityTextbox(product_selection_form[`quantity${i}`]); // show where the error is
+            has_errors = true;
+// Exhibits where error has occurred 
+            checkQuantityTextbox(product_selection_form[`quantity${i}`]); 
           }
         }
       }
@@ -39,14 +48,14 @@
   }
 </script>
 
-<!-- Template borrowed from W3 Template and Bootstrap  :) -->
+<!-- Referencing W3 & Bootstrap for Design -->
 <!DOCTYPE html>
 <html>
 <title>Sam's Superior Phone Cases</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="products_style.css" rel="stylesheet">
-<!--Font used for text-->
+<!--Created own Style Sheet-->
 
 <h1><b>Sam's Superior Phone Cases</b></h1>
 
@@ -56,10 +65,8 @@
   <li><a href="./login.html">Log In</a></li>
 </ul>
 
-<!-- !PAGE CONTENT! -->
 <h2>iPhone 12 Cases</h2>
-
-  <!--Makes the form action go to invoice through post-->
+  <!--Processes Form utilizing POST-->
   <form action="./process_form" method="POST">
     <!--Product Loop-->
     <script>
@@ -67,8 +74,8 @@
     <div>
       <main>
         <script>
-          // Bootstrap elements (div class) suggested by Daphne Oh to make product loops form nicely
-          //This loop makes the product produce without hard coding every product in
+    // Bootstrap elements (Div Class) suggested by Alvin Amira & Meghan Nagai
+    // Product Looping
       for (i = 0; i < products.length; i++) {
         document.write(`<section class="item"> 
           <section class="item">
@@ -92,7 +99,7 @@
           Confirm Your Order Here!
       </h1>
   </footer>
-   <!--This is the submit button to send user to the invoice-->
+   <!--Button Sending User to Invoice if Valid-->
    <button>
     <input type="submit" value="Purchase" name="purchase_submit" class="btn" >
    </button>

@@ -2,17 +2,16 @@
 <html lang="en">
 
   <script>
-    //Alert for User/Password Error
+// ALerts User
     let params = (new URL(document.location)).searchParams;
-    
+// If invalid username or passowrd, User is alerted 
     window.onload = function () {
         if (params.has('LogError')) {
             alert('Invalid Username or Passowrd');
         }
     }
     </script>
-
-    <!--An attempt to get username from https://www.youtube.com/watch?v=vOe0ysNsNCo-->
+<!-- Recommended by Alvin Amira, Referencing https://www.youtube.com/watch?v=vOe0ysNsNCo-->
   <script> 
     function passvalue()
     {
@@ -26,7 +25,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="products_style.css" rel="stylesheet">
-
+<!--Referencing own Stylesheet, referencing Assignment 1-->
   <title>Registration</title>
 </head>
 <body>
@@ -40,7 +39,7 @@
 
 <form method="POST" action="process_register" name="Register">
 
-      <!--Referenced from Lab14, Stackoverflow and w3resources(for the patterns)-->
+<!--Referenced from Lab14, Stackoverflow and w3resources-->
       <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+"
       placeholder="Enter First & Last Name"><br/>
 
@@ -57,16 +56,15 @@
 
       <input type="submit" value="Register" class="btn" onclick="passvalue();">
 
-      <!--Code for old users to redirect themselves to login-->
+<!--Old users can go to Login-->
        <input type="button" name="olduser" value="Users Click Here!" class="btn"
       onclick="window.location='./login.html' + document.location.search;">
       
     </form>
     <script>
-      //saves the query string from the products page for the invoice
+// Saves query string from inputs from products page for the invoice
       Register.action += document.location.search; 
     </script>
-
 
     </div>
     
