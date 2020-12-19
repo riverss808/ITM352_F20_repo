@@ -1,0 +1,87 @@
+<!-- 
+// Samuel Rivers Assignment 3
+// Referenced and Borrowed Code from Assignment 3 Examples (Professor Port), Assignment 2, and w3source.com
+// Gained help from Kevin Nguyen, Alvin Amira, and Meghan Nagai
+-->
+<script src="./product_data.js" type="text/javascript">
+// Linking product data to the invoice
+</script>
+
+<script>
+    // Referencing Assignment 2 and gained helpf rom Kevin Nguyen
+    let params = (new URL(document.location)).searchParams; 
+    var quantities = []; 
+    if (params.has('submitPurchase')) { 
+        for (i = 0; i < products.length; i++) {
+            if (params.has(`quantity${i}`)) {
+                a_qty = params.get(`quantity${i}`);
+                quantities[i] = a_qty;
+            }
+        // Verifies data and will check to see if form is actually submitted, error sent if not
+            else {
+                document.write('No Form Submitted. Please Complete Purchase!')
+            }  
+            console.log(quantities); 
+        }
+    }
+
+    //Code referenced from own Assignment 2, gained help from Alvin Amira and Meghan Nagai
+    if(params.has('username')){
+    var name = params.get('name');
+    var username = params.get('username');
+    var newusername = params.get('newfullname');
+  }
+   
+  function loadJSON(service, callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('POST', service, false);
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+// Utilizing anonymous callback to ensure security
+                callback(xobj.responseText);
+            }
+        };
+        xobj.send(null);
+    }
+
+    loadJSON('get_cart_data', function (response) {
+// Ensuring the parsing of JSON string into object
+        cart_data = JSON.parse(response);
+    });
+// Console log cart data
+    console.log(cart_data);
+</script>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./website-display-style.css" rel="stylesheet">
+    <title>Sam's Shop</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Order</h1>
+    </div>
+
+    <div class="navbar">
+        <!-- Referencing https://www.w3schools.com/css/css_navbar_horizontal.asp-->
+        <ul>
+            <li><a href="./index.html" style="float: left;">Home</a></li>
+            <li><a href="./cases_display_page.html" style="float: left;">Cases</a></li>
+            <li><a href="./charging_display.html" style="float: left;">Charging</a></li>
+            <li><a href="./audio_display.html" style="float: left;">Audio</a></li>
+            <li><a href="./cart.html" style="float: right;">Shopping Cart</a></li>
+            <li><a href="./login.html" style="float: right;">Login</a></li>
+        </ul>
+    </div>
+    <center>
+   <p>Thank you for purchasing! An email has been sent to you with your order confirmation</p>
+</body>
+</html>

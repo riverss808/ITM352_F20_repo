@@ -1,0 +1,141 @@
+<!-- 
+// Samuel Rivers Assignment 3
+// Referenced and Borrowed Code from Assignment 3 Examples (Professor Port), Assignment 2, and w3source.com
+// Gained help from Kevin Nguyen, Alvin Amira, and Meghan Nagai
+-->
+<script src="./product_data.js" type="text/javascript"></script>
+
+<script>
+    var product_key = "Cases";
+
+// Referencing Assignemnt 2 for postData
+async function postData(url = '', data = {}) {
+// Utilizing POST method for server side processing
+  const response = await fetch(url, {
+    method: 'POST', 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+// Body Data must match
+// parses JSON response into native JavaScript objects, Referencing stackify.com JSON & JavaScript objects
+    body: JSON.stringify(data) 
+  });
+  return response.json(); 
+}
+// Creates function to add to cart
+function add_to_cart(i) {
+    postData('./add_to_cart', { 'product_key':product_key, 'product_index':i,'quantity':document.getElementById('quantity' + i).value})
+  .then(data => {
+    console.log(data);
+    document.getElementById(`quantity${i}_span`).innerHTML = data.message;
+    document.getElementById(`quantity${i}`).value = 0;
+  });
+
+}
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./website-display-style.css" rel="stylesheet">
+    <title>Sam's Shop</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Cases</h1>
+     </div>
+
+    <div class="navbar">
+        <!-- Referencing https://www.w3schools.com/css/css_navbar_horizontal.asp-->
+        <ul>
+            <li><a href="./index.html" style="float: left;">Home</a></li>
+            <li><a href="./cases_display_page.html" style="float: left;">Cases</a></li>
+            <li><a href="./charging_display.html" style="float: left;">Charging</a></li>
+            <li><a href="./audio_display.html" style="float: left;">Audio</a></li>
+            <li><a href="./cart.html" style="float: right;">Shopping Cart</a></li>
+            <li><a href="./login.html" style="float: right;"><span id="logged_in">Login</span></a></li>
+            <script>
+        // Referencing https://stackoverflow.com/questions/10730362/get-cookie-by-name
+                        function getCookie(name) {
+                            const value = `; ${document.cookie}`;
+                            const parts = value.split(`; ${name}=`);
+                            if (parts.length === 2) return parts.pop().split(';').shift();
+                            }
+                            
+                            document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username')
+                           
+            </script>
+        </ul>
+    </div>
+   
+    <br>
+    <br>
+
+    <div class="product_display_content">
+<!-- From retrieves quantiy requested and POSTS onto server-->
+        <form name="cases_product_form" action="./add_cases_products_to_cart" method="POST"> 
+<!-- Displays products from products from -->
+            <script>
+            // Loop retreives from products_data.js and displays them on page
+                for (i = 0; i < the_products[product_key].length; i++) {
+                    document.write(`
+                        <section class="item">
+                            <h2>${the_products[product_key][i].item}</h2>
+                             <p>${the_products[product_key][i].price}</p>
+                             <img src= "./images/${the_products[product_key][i].image}" >
+                            <br>    
+                            <br>
+                            <label id="quantity${i}_label"}">Quantity</label>
+                            <input type="text" placeholder="0" id="quantity${i}" name="quantity${i}"
+                            onkeyup="checkQuantityTextbox(this);">
+                            <span id="quantity${i}_span"}"></span>
+                            <br>
+                            <br>
+                            <input type="button" value="Add to Cart" name="add_cases_quantity_to_cart" onclick="
+                            add_to_cart(${i});
+                            ">
+                        </section>
+                    `);
+                }      
+            </script>
+        </form>
+    </div>
+
+</body>
+
+</html>
+
+<!--Checking for "Invalid" quantities and errors-->
+<script>
+    // Referencing ITM352 Lab 12 and Assignment 2 error messages
+    function isNonNegIntString(string_to_check, returnErrors = false) {
+        errors = []; 
+    // Assume no errors at first
+    // If valid, move on to do other checks    
+        if (Number(string_to_check) != string_to_check) { errors.push('<font color = "red">Not a number!</font color = "red">'); } 
+    // Check if quantity is an actual number
+        else { 
+    // If non negative, push error
+            if (string_to_check < 0) { errors.push('<font color = "red">Negative value!</font color = "red">'); } 
+    // If not an integer, push error
+            if (parseInt(string_to_check) != string_to_check) { errors.push('<font color = "red">Not an integer!</font color = "red">'); } 
+        }
+    // If no errors, do not push message
+        return returnErrors ? errors : (errors.length == 0); 
+    }
+
+// Referencing ITM352 Lab 12 and Assignment 2 Error messages for quantities
+    function checkQuantityTextbox(theTextbox) {
+        errs = isNonNegIntString(theTextbox.value, true);
+        if (errs.length == 0) errs = ['You want:']; 
+    // If no errors, replace with "You want" to personalize
+        if (theTextbox.value.trim() == '') errs = ['Quantity'];
+    // If invalid quantity, push error message
+        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(" "); 
+    }
+</script>
